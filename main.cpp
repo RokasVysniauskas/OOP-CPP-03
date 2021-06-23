@@ -30,7 +30,7 @@ int main()
         cout << merchant->toString() << endl << endl;
 
         Character* slave = new Character("Slave", posX2, posY2, 200, 200, inventory2);
-        cout << slave->toString() << endl << endl;
+        cout << *slave << endl << endl;
 
         cout << "The program will now create two different vectors (consisting of 4 characters each)." << endl;
         cout << "After adding the first 2 characters, their positions (meaning location on the map) will get swapped and then the same two characters will get added additionally to the lists." << endl;
@@ -73,25 +73,67 @@ int main()
         listOfCharactersPtrs.push_back(&player);
         listOfCharactersPtrs.push_back(merchant);
 
+        // Testing of the overloaded input stream operator
+        try
+        {
+            cout << "Enter the changed details for the player character (name, pos x, pos y, health, stamina):" << endl;
+            cin >> player;
+        }
+        catch (const std::exception& e)
+        {
+            cout << endl;
+            cerr << "Exception: " << e.what() << endl;
+        }
+        cout << endl;
+
         // Testing of characters' positions' value changes
         cout << "List of characters:" << endl << endl;
-        for (int i = 0; i < listOfCharacters.size(); ++i)
+        for (unsigned int i = 0; i < listOfCharacters.size(); ++i)
         {
-            cout << listOfCharacters[i].toString() << endl << endl;
+            //cout << listOfCharacters[i].toString() << endl << endl;
+            cout << listOfCharacters[i] << endl << endl;
         }
 
         cout << "--------------------------------------------------------" << endl << endl;
 
         cout << "List of pointers to characters:" << endl << endl;
-        for (int i = 0; i < listOfCharactersPtrs.size(); ++i)
+        for (unsigned int i = 0; i < listOfCharactersPtrs.size(); ++i)
         {
-            cout << listOfCharactersPtrs[i]->toString() << endl << endl;
+            //cout << listOfCharactersPtrs[i]->toString() << endl << endl;
+            cout << *listOfCharactersPtrs[i] << endl << endl;
         }
         cout << endl;
+
+        // Testing of overloaded operators
+        if (*listOfCharactersPtrs[0] == *listOfCharactersPtrs[0])
+        {
+            cout << "stamina of *listOfCharactersPtrs[0] == stamina of *listOfCharactersPtrs[0]" << endl << endl;
+        }
+        if (*listOfCharactersPtrs[0] != *listOfCharactersPtrs[1])
+        {
+            cout << "stamina of *listOfCharactersPtrs[0] != stamina of *listOfCharactersPtrs[1]" << endl << endl;
+        }
+        if (*listOfCharactersPtrs[0] < *listOfCharactersPtrs[1])
+        {
+            cout << "stamina of *listOfCharactersPtrs[0] < stamina of *listOfCharactersPtrs[1]" << endl << endl;
+        }
+        if (*listOfCharactersPtrs[0] <= *listOfCharactersPtrs[0])
+        {
+            cout << "stamina of *listOfCharactersPtrs[0] <= stamina of *listOfCharactersPtrs[0]" << endl << endl;
+        }
+        if (*listOfCharactersPtrs[1] > *listOfCharactersPtrs[0])
+        {
+            cout << "stamina of *listOfCharactersPtrs[1] > stamina of *listOfCharactersPtrs[0]" << endl << endl;
+        }
+        if (*listOfCharactersPtrs[0] >= *listOfCharactersPtrs[0])
+        {
+            cout << "stamina of *listOfCharactersPtrs[0] >= stamina of *listOfCharactersPtrs[0]" << endl << endl;
+        }
 
         delete merchant;
 
         // Exception testing
+        cout << "Exception testing:" << endl;
         Character* dog = new Character("", posX2, posY2, 200, 200, inventory2);
 
         cout << "Exception test FAILED HAAAAAAAAA... Noob... XOXOXOX" << endl;

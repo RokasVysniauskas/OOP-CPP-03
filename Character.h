@@ -14,11 +14,12 @@ namespace mbs // motivation-block struggles
         double posX_;
         double posY_;
         unsigned int health_;
-        unsigned int stamina_;
+        unsigned int stamina_; // having maxStamina and MaxHP would probably make sense, especially considering the use of overloaded operators
         std::vector<std::string> inventory_;
 
     public:
-        Character(std::string name, double x, double y, unsigned int health, unsigned int stamina, std::vector<std::string>& inventory);
+        Character();
+        Character(std::string name, double& x, double& y, unsigned int health, unsigned int stamina, std::vector<std::string>& inventory);
         virtual ~Character();
 
         static unsigned int getLastID() { return lastID_; }
@@ -40,6 +41,19 @@ namespace mbs // motivation-block struggles
         void setStamina(unsigned int stamina);
         std::vector<std::string> getInventory() const { return inventory_; }
         void setInventory(std::vector<std::string>& inventory);
+
+        bool operator==(const Character& ch) const;
+        bool operator!=(const Character& ch) const;
+        bool operator<(const Character& ch) const;
+        bool operator<=(const Character& ch) const;
+        bool operator>(const Character& ch) const;
+        bool operator>=(const Character& ch) const;
+        
+        Character& operator++();
+        Character operator++(int rhs);
+
+        friend std::ostream& operator<<(std::ostream& output, Character& ch);
+        friend std::istream& operator>>(std::istream& input, Character& ch);
 
         std::string toString();
     };
